@@ -91,25 +91,25 @@ namespace GongSolutions.Wpf.DragDrop
 
     static DropTargetInsertionAdorner()
     {
-      // Create the pen and triangle in a static constructor and freeze them to improve performance.
-      const int triangleSize = 5;
+        // Create the pen and triangle in a static constructor and freeze them to improve performance.
+        const int triangleSize = 7;
 
-      m_Pen = new Pen(Brushes.Gray, 2);
-      m_Pen.Freeze();
+        m_Pen = new Pen(Brushes.Red, 4);
+        m_Pen.Freeze();
 
-      var firstLine = new LineSegment(new Point(0, -triangleSize), false);
-      firstLine.Freeze();
-      var secondLine = new LineSegment(new Point(0, triangleSize), false);
-      secondLine.Freeze();
+        var firstLine = new LineSegment(new Point(0, -triangleSize), false);
+        firstLine.Freeze();
+        var secondLine = new LineSegment(new Point(0, triangleSize), false);
+        secondLine.Freeze();
 
-      var figure = new PathFigure { StartPoint = new Point(triangleSize, 0) };
-      figure.Segments.Add(firstLine);
-      figure.Segments.Add(secondLine);
-      figure.Freeze();
+        var figure = new PathFigure { StartPoint = new Point(triangleSize, 0) };
+        figure.Segments.Add(firstLine);
+        figure.Segments.Add(secondLine);
+        figure.Freeze();
 
-      m_Triangle = new PathGeometry();
-      m_Triangle.Figures.Add(figure);
-      m_Triangle.Freeze();
+        m_Triangle = new PathGeometry();
+        m_Triangle.Figures.Add(figure);
+        m_Triangle.Freeze();
     }
 
     private static readonly Pen m_Pen;
