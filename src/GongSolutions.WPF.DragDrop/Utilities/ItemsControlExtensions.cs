@@ -225,9 +225,6 @@ namespace GongSolutions.Wpf.DragDrop.Utilities
     /// <returns>Orientation for the given ItemsControl.</returns>
     public static Orientation GetItemsPanelOrientation(this ItemsControl itemsControl)
     {
-      //var o = DragDrop.GetDragOrientation(itemsControl);
-      //if (o.HasValue)
-      //  return o.Value;
       var itemsPanelOrientation = DragDrop.GetItemsPanelOrientation(itemsControl);
       if (itemsPanelOrientation.HasValue)
       {
