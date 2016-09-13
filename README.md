@@ -1,3 +1,5 @@
+(Note on this fork: This is a work project fork that doesn't contain any new functionality. I forked it a long time ago to fiddle with the drag adorner and manually merge in a pull request that is now in the official repo; this fork probably isn't even necessary anymore. Please use the "real" repo.)
+
 ![logo](GongSolutions.Wpf.DragDrop.Full.png)
 
 ## Introduction
