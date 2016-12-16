@@ -368,7 +368,33 @@ public static readonly DependencyProperty DragDirectlySelectedOnlyProperty =
         source.SetValue(ItemsPanelOrientationProperty, value);
     }
 
-public static IDragSource DefaultDragHandler
+    public static readonly DependencyProperty MinimumVerticalDragDistanceProperty =
+        DependencyProperty.RegisterAttached("MinimumVerticalDragDistance", typeof(double), typeof(DragDrop), new PropertyMetadata(SystemParameters.MinimumVerticalDragDistance));
+
+    public static readonly DependencyProperty MinimumHorizontalDragDistanceProperty =
+        DependencyProperty.RegisterAttached("MinimumHorizontalDragDistance", typeof(double), typeof(DragDrop), new PropertyMetadata(SystemParameters.MinimumHorizontalDragDistance));
+
+    public static double GetMinimumVerticalDragDistance(UIElement source)
+    {
+        return (double)source.GetValue(MinimumVerticalDragDistanceProperty);
+    }
+        
+    public static void SetMinimumVerticalDragDistance(UIElement source, double value)
+    {
+        source.SetValue(MinimumVerticalDragDistanceProperty, value);
+    }
+
+    public static double GetMinimumHorizontalDragDistance(UIElement source)
+    {
+        return (double)source.GetValue(MinimumHorizontalDragDistanceProperty);
+    }
+
+    public static void SetMinimumHorizontalDragDistance(UIElement source, double value)
+    {
+        source.SetValue(MinimumHorizontalDragDistanceProperty, value);
+    }
+
+    public static IDragSource DefaultDragHandler
     {
       get
       {
@@ -804,8 +830,8 @@ public static IDragSource DefaultDragHandler
 
         // only if the sender is the source control and the mouse point differs from an offset
         if (m_DragInfo.VisualSource == sender
-            && (Math.Abs(position.X - dragStart.X) > SystemParameters.MinimumHorizontalDragDistance ||
-                Math.Abs(position.Y - dragStart.Y) > SystemParameters.MinimumVerticalDragDistance)) {
+            && (Math.Abs(position.X - dragStart.X) > DragDrop.GetMinimumHorizontalDragDistance(sender as UIElement) ||
+                Math.Abs(position.Y - dragStart.Y) > DragDrop.GetMinimumVerticalDragDistance(sender as UIElement))) {
           var dragHandler = TryGetDragHandler(m_DragInfo, sender as UIElement);
           if (dragHandler.CanStartDrag(m_DragInfo)) {
             dragHandler.StartDrag(m_DragInfo);
