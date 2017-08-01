@@ -332,32 +332,6 @@ namespace GongSolutions.Wpf.DragDrop
       DoMouseButtonDown(sender, e);
     }
 
-    public static readonly DependencyProperty MinimumVerticalDragDistanceProperty =
-        DependencyProperty.RegisterAttached("MinimumVerticalDragDistance", typeof(double), typeof(DragDrop), new PropertyMetadata(SystemParameters.MinimumVerticalDragDistance));
-
-    public static readonly DependencyProperty MinimumHorizontalDragDistanceProperty =
-        DependencyProperty.RegisterAttached("MinimumHorizontalDragDistance", typeof(double), typeof(DragDrop), new PropertyMetadata(SystemParameters.MinimumHorizontalDragDistance));
-
-    public static double GetMinimumVerticalDragDistance(UIElement source)
-    {
-        return (double)source.GetValue(MinimumVerticalDragDistanceProperty);
-    }
-
-    public static void SetMinimumVerticalDragDistance(UIElement source, double value)
-    {
-        source.SetValue(MinimumVerticalDragDistanceProperty, value);
-    }
-
-    public static double GetMinimumHorizontalDragDistance(UIElement source)
-    {
-        return (double)source.GetValue(MinimumHorizontalDragDistanceProperty);
-    }
-
-    public static void SetMinimumHorizontalDragDistance(UIElement source, double value)
-    {
-        source.SetValue(MinimumHorizontalDragDistanceProperty, value);
-    }
-
     private static void DoMouseButtonDown(object sender, MouseButtonEventArgs e)
     {
       // Ignore the click if clickCount != 1 or the user has clicked on a scrollbar.
