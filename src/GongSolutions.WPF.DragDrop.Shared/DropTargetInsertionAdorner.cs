@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
+using System.Windows.Media.Effects;
 #if NET35
 using GongSolutions.Wpf.DragDrop.Utilities;
 #endif
@@ -13,13 +14,15 @@ namespace GongSolutions.Wpf.DragDrop
     [Obsolete("This constructor is obsolete and will be deleted in next major release.")]
     public DropTargetInsertionAdorner(UIElement adornedElement)
       : base(adornedElement, (DropInfo)null)
-    {
-    }
+        {
+            this.Effect = m_DropShadowEffect;
+        }
 
     public DropTargetInsertionAdorner(UIElement adornedElement, DropInfo dropInfo)
       : base(adornedElement, dropInfo)
-    {
-    }
+        {
+            this.Effect = m_DropShadowEffect;
+        }
 
     /// <summary>
     /// When overridden in a derived class, participates in rendering operations that are directed by the layout system.
@@ -110,11 +113,11 @@ namespace GongSolutions.Wpf.DragDrop
             point1 = new Point(itemRectX, itemRect.Y);
             point2 = new Point(itemRectX, itemRect.Bottom);
             rotation = 90;
-          }
-
-          drawingContext.DrawLine(m_Pen, point1, point2);
-          this.DrawTriangle(drawingContext, point1, rotation);
-          this.DrawTriangle(drawingContext, point2, 180 + rotation);
+            }
+                    //drawingContext.DrawLine(m_Pen, point1, point2);
+                    drawingContext.DrawGeometry(null, m_Pen, new RectangleGeometry(new Rect(point1, point2), 6, 6));
+                    //this.DrawTriangle(drawingContext, point1, rotation);
+          //this.DrawTriangle(drawingContext, point2, 180 + rotation);
         }
       }
     }
@@ -135,7 +138,16 @@ namespace GongSolutions.Wpf.DragDrop
         // Create the pen and triangle in a static constructor and freeze them to improve performance.
         const int triangleSize = 7;
 
-        m_Pen = new Pen(Brushes.Red, 4);
+        m_DropShadowEffect = new DropShadowEffect
+        {
+            ShadowDepth = 0,
+            Color = Color.FromRgb(74, 138, 252),
+            Opacity = 1,
+            BlurRadius = 5
+        };
+            m_DropShadowEffect.Freeze();
+
+        m_Pen = new Pen(new SolidColorBrush(Color.FromRgb(74,138,252)), 3);
         m_Pen.Freeze();
 
         var firstLine = new LineSegment(new Point(0, -triangleSize), false);
@@ -155,5 +167,6 @@ namespace GongSolutions.Wpf.DragDrop
 
     private static readonly PathGeometry m_Triangle;
         private static readonly Pen m_Pen;
+        private static readonly DropShadowEffect m_DropShadowEffect;
   }
 }
