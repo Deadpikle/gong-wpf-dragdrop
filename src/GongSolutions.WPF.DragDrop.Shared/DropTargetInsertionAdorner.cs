@@ -154,6 +154,6 @@ namespace GongSolutions.Wpf.DragDrop
     }
 
     private static readonly PathGeometry m_Triangle;
-    private static readonly Pen m_Pen
+        private static readonly Pen m_Pen;
   }
 }
