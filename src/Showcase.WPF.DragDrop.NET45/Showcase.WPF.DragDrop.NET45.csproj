@@ -57,9 +57,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs">
-      <Link>GlobalAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -73,6 +70,7 @@
     <Compile Include="Models\GroupedDropHandler.cs" />
     <Compile Include="Models\GroupedItem.cs" />
     <Compile Include="Models\ItemModel.cs" />
+    <Compile Include="Models\ListBoxCustomDropHandler.cs" />
     <Compile Include="Models\SampleData.cs" />
     <Compile Include="Models\TabItemModel.cs" />
     <Compile Include="Models\TextBoxCustomDropHandler.cs" />
