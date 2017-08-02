@@ -84,7 +84,7 @@ namespace GongSolutions.Wpf.DragDrop
 
           var viewportWidth = DropInfo.TargetScrollViewer?.ViewportWidth ?? double.MaxValue;
           var viewportHeight = DropInfo.TargetScrollViewer?.ViewportHeight ?? double.MaxValue;
-
+          double offset = DragDrop.GetInsertionAdornerOffset(itemParent);
           if (dropInfo.VisualTargetOrientation == Orientation.Vertical)
           {
             if (dropInfo.InsertIndex == itemsCount || lastItemInGroup)
@@ -92,8 +92,8 @@ namespace GongSolutions.Wpf.DragDrop
               itemRect.Y += itemContainer.RenderSize.Height;
             }
 
-            var itemRectRight = Math.Min(itemRect.Right, viewportWidth);
-            var itemRectLeft = itemRect.X < 0 ? 0 : itemRect.X;
+            var itemRectRight = Math.Min(itemRect.Right, viewportWidth) - offset;
+            var itemRectLeft = itemRect.X < 0 ? 0 : itemRect.X + offset;
             point1 = new Point(itemRectLeft, itemRect.Y);
             point2 = new Point(itemRectRight, itemRect.Y);
           }
@@ -110,8 +110,8 @@ namespace GongSolutions.Wpf.DragDrop
               itemRectX += itemContainer.RenderSize.Width;
             }
 
-            point1 = new Point(itemRectX, itemRect.Y);
-            point2 = new Point(itemRectX, itemRect.Bottom);
+            point1 = new Point(itemRectX, itemRect.Y - offset);
+            point2 = new Point(itemRectX, itemRect.Bottom + offset);
             rotation = 90;
             }
                     //drawingContext.DrawLine(m_Pen, point1, point2);

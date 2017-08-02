@@ -791,5 +791,28 @@ namespace GongSolutions.Wpf.DragDrop
     {
         source.SetValue(MinimumHorizontalDragDistanceProperty, value);
     }
-  }
+
+
+        public static readonly DependencyProperty InsertionAdornerOffsetProperty
+          = DependencyProperty.RegisterAttached("InsertionAdornerOffset",
+                                                typeof(double),
+                                                typeof(DragDrop),
+                                                new PropertyMetadata(0.0));
+
+        /// <summary>
+        /// Gets the insertion adorner offset.
+        /// </summary>
+        public static double GetInsertionAdornerOffset(UIElement source)
+        {
+            return (double)source.GetValue(InsertionAdornerOffsetProperty);
+        }
+
+        /// <summary>
+        /// Sets the insertion adorner offset.
+        /// </summary>
+        public static void SetInsertionAdornerOffset(UIElement source, double value)
+        {
+            source.SetValue(InsertionAdornerOffsetProperty, value);
+        }
+    }
 }
