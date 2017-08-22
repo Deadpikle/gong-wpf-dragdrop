@@ -110,8 +110,8 @@ namespace GongSolutions.Wpf.DragDrop
               itemRectX += itemContainer.RenderSize.Width;
             }
 
-            point1 = new Point(itemRectX, itemRect.Y - offset);
-            point2 = new Point(itemRectX, itemRect.Bottom + offset);
+            point1 = new Point(itemRectX, itemRect.Y + offset);
+            point2 = new Point(itemRectX, itemRect.Bottom - offset);
             rotation = 90;
             }
                     //drawingContext.DrawLine(m_Pen, point1, point2);
@@ -126,7 +126,7 @@ namespace GongSolutions.Wpf.DragDrop
     {
       drawingContext.PushTransform(new TranslateTransform(origin.X, origin.Y));
       drawingContext.PushTransform(new RotateTransform(rotation));
-
+            
       drawingContext.DrawGeometry(m_Pen.Brush, null, m_Triangle);
 
       drawingContext.Pop();
@@ -140,10 +140,10 @@ namespace GongSolutions.Wpf.DragDrop
 
         m_DropShadowEffect = new DropShadowEffect
         {
-            ShadowDepth = 0,
+            ShadowDepth = 1,
             Color = Color.FromRgb(74, 138, 252),
-            Opacity = 1,
-            BlurRadius = 5
+            Opacity = 0.65,
+            BlurRadius = 15
         };
             m_DropShadowEffect.Freeze();
 
