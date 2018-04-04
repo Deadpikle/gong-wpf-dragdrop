@@ -22,7 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DropTargetInsertionAdorner.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalAssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Icons\IconFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IDragAdornerSorter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IDragEnumerableSorter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IDragInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IDragSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IDropInfo.cs" />
