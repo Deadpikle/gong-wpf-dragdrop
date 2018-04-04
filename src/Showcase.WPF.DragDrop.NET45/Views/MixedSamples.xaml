@@ -53,6 +53,7 @@
                        dd:DragDrop.IsDragSource="True"
                        dd:DragDrop.IsDropTarget="True"
                        dd:DragDrop.DragAdornerTemplate="{StaticResource DragAdorner}"
+                       dd:DragDrop.DragSortHandler="{Binding}"
                        dd:DragDrop.UseDefaultEffectDataTemplate="True" />
             </DockPanel>
 

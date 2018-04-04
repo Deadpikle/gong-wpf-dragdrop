@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using GongSolutions.Wpf.DragDrop.Utilities;
+using GongSolutions.WPF.DragDrop.Shared;
 
 namespace GongSolutions.Wpf.DragDrop
 {
@@ -124,6 +125,21 @@ namespace GongSolutions.Wpf.DragDrop
       if (this.SourceItems == null) {
         this.SourceItems = Enumerable.Empty<object>();
       }
+      var sorter = TryGetAdornerSorter(this, this.VisualSource);
+      if (sorter != null) {
+        this.SourceItems = sorter.SortDragDropItems(this.SourceItems);
+      }
+    }
+
+    private IDragEnumerableSorter TryGetAdornerSorter(DragInfo info, UIElement sender) {
+      IDragEnumerableSorter handler = null;
+      if (info != null && info.VisualSource != null) {
+        handler = (IDragEnumerableSorter)info.VisualSource.GetValue(DragDrop.DragSortHandlerProperty);
+      }
+      if (handler == null && sender != null) {
+        handler = (IDragEnumerableSorter)sender.GetValue(DragDrop.DragSortHandlerProperty);
+      }
+      return handler ?? null;
     }
 
     /// <summary>
