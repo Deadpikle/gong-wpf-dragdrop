@@ -38,6 +38,13 @@ namespace GongSolutions.Wpf.DragDrop
                     {
                         var itemsControl = new ItemsControl();
                         itemsControl.ItemsSource = (IEnumerable)dragInfo.Data;
+
+                        var sorter = TryGetAdornerSorter(dragInfo, target);
+                        if (sorter != null)
+                        {
+                            itemsControl.ItemsSource = sorter.SortDragDropItems(itemsControl.ItemsSource);
+                        }
+
                         itemsControl.ItemTemplate = template;
                         itemsControl.ItemTemplateSelector = templateSelector;
                         itemsControl.Tag = dragInfo;
@@ -88,6 +95,20 @@ namespace GongSolutions.Wpf.DragDrop
             }
 
             return null;
+        }
+
+        private static IDragEnumerableSorter TryGetAdornerSorter(IDragInfo info, UIElement sender)
+        {
+            IDragEnumerableSorter handler = null;
+            if (info != null && info.VisualSource != null)
+            {
+                handler = (IDragEnumerableSorter)info.VisualSource.GetValue(DragDrop.DragSortHandlerProperty);
+            }
+            if (handler == null && sender != null)
+            {
+                handler = (IDragEnumerableSorter)sender.GetValue(DragDrop.DragSortHandlerProperty);
+            }
+            return handler ?? null;
         }
 
         private static DragDropEffectPreview GetDragDropEffectPreview(DropInfo dropInfo, UIElement sender)
