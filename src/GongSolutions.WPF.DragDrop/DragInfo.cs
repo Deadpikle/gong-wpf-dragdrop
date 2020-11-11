@@ -244,6 +244,26 @@ namespace GongSolutions.Wpf.DragDrop
             {
                 this.SourceItems = Enumerable.Empty<object>();
             }
+
+            var sorter = TryGetAdornerSorter(this, this.VisualSource);
+            if (sorter != null)
+            {
+                this.SourceItems = sorter.SortDragDropItems(this.SourceItems);
+            }
+        }
+
+        private IDragEnumerableSorter TryGetAdornerSorter(DragInfo info, UIElement sender)
+        {
+            IDragEnumerableSorter handler = null;
+            if (info != null && info.VisualSource != null)
+            {
+                handler = (IDragEnumerableSorter)info.VisualSource.GetValue(DragDrop.DragSortHandlerProperty);
+            }
+            if (handler == null && sender != null)
+            {
+                handler = (IDragEnumerableSorter)sender.GetValue(DragDrop.DragSortHandlerProperty);
+            }
+            return handler ?? null;
         }
     }
 }
