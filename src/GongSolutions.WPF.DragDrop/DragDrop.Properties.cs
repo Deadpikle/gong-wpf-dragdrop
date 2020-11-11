@@ -1174,7 +1174,5 @@ namespace GongSolutions.Wpf.DragDrop
         {
             target.SetValue(DragSortHandlerProperty, value);
         }
-
-
     }
 }
