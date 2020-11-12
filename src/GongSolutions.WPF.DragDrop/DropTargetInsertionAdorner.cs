@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Effects;
 using System.Windows.Controls;
 using GongSolutions.Wpf.DragDrop.Utilities;
 using System.Windows.Controls.Primitives;
@@ -13,7 +12,6 @@ namespace GongSolutions.Wpf.DragDrop
         public DropTargetInsertionAdorner(UIElement adornedElement, DropInfo dropInfo)
             : base(adornedElement, dropInfo)
         {
-            this.Effect = m_DropShadowEffect;
         }
 
         /// <summary>
@@ -124,13 +122,11 @@ namespace GongSolutions.Wpf.DragDrop
                                     }
                                 }
 
-                                //itemRect.Y += this.Pen.Thickness;
+                                itemRect.Y += this.Pen.Thickness;
                             }
                         }
 
-                        //var itemRectRight = Math.Min(itemRect.Right, viewportWidth) - offset;
-                        //var itemRectLeft = itemRect.X < 0 ? 0 : itemRect.X + offset;
-                        var itemRectRight = itemRect.Right;
+                        var itemRectRight = itemRect.Right; //Math.Min(itemRect.Right, viewportWidth);
                         var itemRectLeft = itemRect.X < 0 ? 0 : itemRect.X;
                         point1 = new Point(itemRectLeft, itemRect.Y);
                         point2 = new Point(itemRectRight, itemRect.Y);
@@ -145,7 +141,7 @@ namespace GongSolutions.Wpf.DragDrop
                             }
                             else
                             {
-                                //itemRect.X += this.Pen.Thickness;
+                                itemRect.X += this.Pen.Thickness;
                             }
                         }
                         else if (dropInfo.VisualTargetFlowDirection == FlowDirection.RightToLeft && dropInfo.InsertIndex != itemsCount)
@@ -156,7 +152,7 @@ namespace GongSolutions.Wpf.DragDrop
                             }
                             else
                             {
-                               // itemRect.X += this.Pen.Thickness;
+                                itemRect.X += this.Pen.Thickness;
                             }
                         }
 
@@ -168,10 +164,9 @@ namespace GongSolutions.Wpf.DragDrop
                         rotation = 90;
                     }
 
-                    drawingContext.DrawGeometry(null, m_Pen, new RectangleGeometry(new Rect(point1, point2), 6, 6));
-                    //drawingContext.DrawLine(this.Pen, point1, point2);
-                    //this.DrawTriangle(drawingContext, point1, rotation);
-                    //this.DrawTriangle(drawingContext, point2, 180 + rotation);
+                    drawingContext.DrawLine(this.Pen, point1, point2);
+                    this.DrawTriangle(drawingContext, point1, rotation);
+                    this.DrawTriangle(drawingContext, point2, 180 + rotation);
                 }
             }
         }
@@ -190,19 +185,7 @@ namespace GongSolutions.Wpf.DragDrop
         static DropTargetInsertionAdorner()
         {
             // Create the pen and triangle in a static constructor and freeze them to improve performance.
-            const int triangleSize = 7;
-
-            m_DropShadowEffect = new DropShadowEffect
-            {
-                ShadowDepth = 1,
-                Color = Color.FromRgb(74, 138, 252),
-                Opacity = 0.65,
-                BlurRadius = 15
-            };
-            m_DropShadowEffect.Freeze();
-
-            m_Pen = new Pen(new SolidColorBrush(Color.FromRgb(74, 138, 252)), 3);
-            m_Pen.Freeze();
+            const int triangleSize = 5;
 
             var firstLine = new LineSegment(new Point(0, -triangleSize), false);
             firstLine.Freeze();
@@ -220,7 +203,5 @@ namespace GongSolutions.Wpf.DragDrop
         }
 
         private static readonly PathGeometry m_Triangle;
-        private static readonly Pen m_Pen;
-        private static readonly DropShadowEffect m_DropShadowEffect;
     }
 }
